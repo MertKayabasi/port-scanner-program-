@@ -72,27 +72,22 @@ public class PortScannerGUI extends JFrame {
 
             List<Integer> openPorts = host.openPortNumbersBetween(startPort, endPort);
 
-            // Sonuçları JTextArea'ya ekle
-            resultTextArea.setText("");
-            for (int port : openPorts) {
-                String portDescription = host.portDescription(port);
-                String result = "Port " + port + ": " + portDescription + "\n";
-                resultTextArea.append(result);
+            // JTextArea'ya sonuçları ekle
+            resultTextArea.setText(""); // Mevcut metni temizle
+
+            if (openPorts.isEmpty()) {
+                resultTextArea.append("Belirtilen aralıkta açık port bulunamadı.");
+            } else {
+                for (int port : openPorts) {
+                    String portDescription = host.portDescription(port);
+                    String result = "Port " + port + ": " + portDescription + "\n";
+                    resultTextArea.append(result);
+                }
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Lütfen geçerli bir sayı girin.", "Hata", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Hata: " + ex.getMessage(), "Hata", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                PortScannerGUI portScannerGUI = new PortScannerGUI();
-                portScannerGUI.setVisible(true);
-            }
-        });
     }
 }
