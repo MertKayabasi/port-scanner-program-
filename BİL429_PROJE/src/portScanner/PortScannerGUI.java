@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.InetAddress;
 import java.util.List;
-import java.util.Scanner;
+
 public class PortScannerGUI extends JFrame {
 
     private JTextArea resultTextArea;
@@ -36,14 +36,10 @@ public class PortScannerGUI extends JFrame {
                 scanPorts();
             }
         });
-        
-        /*Scanner a =new Scanner(System.in);
-        int port_start = a.nextInt();
-        Scanner sc =new Scanner(System.in);
-        int port_end = sc.nextInt();*/
-        hostTextField = new JTextField("192.168.1.37");
-        startPortTextField = new JTextField("1");
-        endPortTextField = new JTextField("10");
+
+        hostTextField = new JTextField();
+        startPortTextField = new JTextField();
+        endPortTextField = new JTextField();
 
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(4, 2));
@@ -88,5 +84,15 @@ public class PortScannerGUI extends JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                PortScannerGUI portScannerGUI = new PortScannerGUI();
+                portScannerGUI.setVisible(true);
+            }
+        });
     }
 }
